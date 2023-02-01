@@ -19,7 +19,7 @@ const flatPickerOptions = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates) {
+  onClose() {
     checkIfDateInFuture();
   },
 };
@@ -46,7 +46,8 @@ function onStartBtnClick() {
        const restDate = convertMs(deltaMs)
         updateClockFace(restDate);
         if (Number(deltaMs) < 1000) {
-          clearInterval(timeOutId);
+          Notify.success('The future is here ;-)')
+            clearInterval(timeOutId);
         }
         
   }, 1000);
