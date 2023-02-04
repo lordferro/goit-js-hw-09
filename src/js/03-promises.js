@@ -20,6 +20,9 @@ refs.form.addEventListener('submit', onFormSubmit);
 function onFormSubmit(e) {
   e.preventDefault();
   getData();
+  if (data.firstDelay < 0 || data.delayStep < 0 || data.delayAmount <= 0) {
+    return Notify.info('Введите данные больше нуля');
+  }
   createPromiseFromParams(data);   
 }
 
