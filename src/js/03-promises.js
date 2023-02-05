@@ -7,21 +7,21 @@ const refs = {
   form: document.querySelector('.form'),
 };
 
-const data = {
-  firstDelay: 0,
-  delayStep: 0,
-  delayAmount: 0,
-}
-
 refs.form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  getData();
-  if (data.firstDelay < 0 || data.delayStep < 0 || data.delayAmount <= 0) {
+
+  // получаем введённые данные
+  const form = e.currentTarget;
+  const firstDelay = form.elements.delay.value;
+  const delayStep = form.elements.step.value;
+  const delayAmount = form.elements.amount.value;
+
+  if (firstDelay < 0 || delayStep < 0 || delayAmount <= 0) {
     return Notify.info('Введите данные больше нуля');
   }
-  createPromiseFromParams(data);   
+  createPromiseFromParams({firstDelay, delayStep, delayAmount});   
 }
 
 function createPromise(position, delay) {
@@ -47,10 +47,4 @@ function createPromiseFromParams({firstDelay, delayStep, delayAmount}) {
     handlePromise.then(onSuccess=>onSuccess).catch(onError=>onError)
     delay += delayStep;
   } 
-}
-
-function getData() {
-  data.firstDelay = Number(refs.firstDelay.value);
-  data.delayStep = Number(refs.delayStep.value);
-  data.delayAmount = Number(refs.delayAmount.value);
 }
