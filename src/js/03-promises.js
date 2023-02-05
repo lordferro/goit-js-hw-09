@@ -13,8 +13,6 @@ const data = {
   delayAmount: 0,
 }
 
-const promises = [];
-
 refs.form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
@@ -45,8 +43,8 @@ function createPromiseFromParams({firstDelay, delayStep, delayAmount}) {
   
   for (let position = 1; position <= delayAmount; position++) {
     
-    const a = createPromise(position, delay);
-    a.then(x=>x).catch(y=>y)
+    const handlePromise = createPromise(position, delay);
+    handlePromise.then(onSuccess=>onSuccess).catch(onError=>onError)
     delay += delayStep;
   } 
 }
